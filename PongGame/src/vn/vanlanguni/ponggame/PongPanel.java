@@ -59,13 +59,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerOneX = 0;
 	private int playerOneY = 250;
 	private int playerOneWidth = 10;
-	private int playerOneHeight = 50;
+	private int playerOneHeight = 60;
 
 	/** Player 2's paddle: position and size */
 	private int playerTwoX = 484;
 	private int playerTwoY = 250;
 	private int playerTwoWidth = 10;
-	private int playerTwoHeight = 50;
+	private int playerTwoHeight = 60;
 
 	/** Speed of the paddle - How fast the paddle move. */
 	private int paddleSpeed = 5;
@@ -141,8 +141,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			float playerTwoBottom = playerTwoY + playerTwoHeight;
 
 			// ball bounces off top and bottom of screen
-			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
-				ballDeltaY *= -1;
+			if (nextBallTop < 0) {
+				ballDeltaY = 3;
+			} else if (nextBallBottom > 475) {
+				ballDeltaY = -3;
 			}
 
 			// will the ball go off the left side?
@@ -160,6 +162,24 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					ballX = 250;
 					ballY = 250;
 				} else {
+					// dieu chinh goc bat cua bong paddle 1
+					if (ballDeltaY == -3) {
+						if (nextBallLeft <= playerOneTop + 15 || nextBallLeft >= playerOneBottom - 15) {
+							ballDeltaY = -5;
+						} else if (nextBallLeft < playerOneTop + 30) {
+							ballDeltaY = -4;
+						} else if (nextBallLeft < playerOneTop + 45) {
+							ballDeltaY = -3;
+						}
+					} else {
+						if (nextBallLeft <= playerOneTop + 15 || nextBallLeft >= playerOneBottom - 15) {
+							ballDeltaY = 5;
+						} else if (nextBallLeft < playerOneTop + 30) {
+							ballDeltaY = 4;
+						} else if (nextBallLeft < playerOneTop + 45) {
+							ballDeltaY = 3;
+						}
+					}
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
@@ -181,6 +201,26 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					ballX = 250;
 					ballY = 250;
 				} else {
+					// dieu chinh goc bat cua bong paddle 2
+					if (ballDeltaY == -3) {
+						if (nextBallRight <= playerTwoTop + 15 || nextBallRight >= playerTwoBottom - 15) {
+							ballDeltaY = -5;
+						} else if (nextBallRight < playerTwoTop + 30) {
+							ballDeltaY = -4;
+						} else if (nextBallRight < playerTwoTop + 45) {
+							ballDeltaY = -3;
+						}
+
+					} else {
+						if (nextBallRight <= playerTwoTop + 15 || nextBallRight >= playerTwoBottom - 15) {
+							ballDeltaY = 5;
+						} else if (nextBallRight < playerTwoTop + 30) {
+							ballDeltaY = 4;
+						} else if (nextBallRight < playerTwoTop + 45) {
+							ballDeltaY = 3;
+						}
+
+					}
 
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
