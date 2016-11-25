@@ -45,7 +45,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
-	ImageIcon imaPlaying, imaStart, imaOver,imaFill;
+	ImageIcon imaPlaying, imaStart, imaOver;
 
 	/** State on the control keys. */
 	private boolean upPressed;
@@ -102,24 +102,21 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		step();
 		if (radBall1.isSelected()) {
 			// System.out.println(1);
-			imaStart = new ImageIcon("");//imagePongGame/start3.gif
-			imaPlaying = new ImageIcon("");
+			imaStart = new ImageIcon("imagePongGame/nen neon.jpg");//imagePongGame/start3.gif
+			imaPlaying = new ImageIcon("imagePongGame/amnhac4.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau2.png");
-			imaOver = new ImageIcon("");//imagePongGame/imaOver.gif
-			imaFill = new ImageIcon("");//imagePongGame/fill5.png
+			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
 
 		} else if (radBall2.isSelected()) {
-			imaPlaying = new ImageIcon("");
+			imaPlaying = new ImageIcon("imagePongGame/anhdongnoen1.gif");
 			imaBall = new ImageIcon("imagePongGame/cau3.png");
-			imaStart = new ImageIcon("");
-			imaOver = new ImageIcon("");
-			imaFill = new ImageIcon("");
+			imaStart = new ImageIcon("imagePongGame/anhdongnoen.gif");
+			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
 		}else if (radBall3.isSelected()) {
-			imaPlaying = new ImageIcon("");
+			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau4.png");
-			imaStart = new ImageIcon("");
-			imaOver = new ImageIcon("");
-			imaFill = new ImageIcon("");
+			imaStart = new ImageIcon("imagePongGame/anhdongnoen.gif");
+			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
 		}
 	}
 
@@ -299,7 +296,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			pnlSelect.setVisible(true);
 			// background screen
 			g.drawImage(imaStart.getImage(), 0, 0, getWidth(), getHeight(), null);
-			g.drawImage(imaFill.getImage(), 100, 250, 300, 185,null);
 			// draw ball list
 			imaBall1 = new ImageIcon("imagePongGame/cau2.png");
 			imaBall2 = new ImageIcon("imagePongGame/cau3.png");
