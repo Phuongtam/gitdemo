@@ -16,6 +16,7 @@
  *  Version: 0.5
  */
 package vn.vanlanguni.ponggame;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -24,7 +25,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
 /**
@@ -41,6 +45,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
+	ImageIcon imaPlaying, imaStart, imaOver,imaFill;
 
 	/** State on the control keys. */
 	private boolean upPressed;
@@ -51,9 +56,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	/** The ball: position, diameter */
 	private int ballX = 250;
 	private int ballY = 250;
-	private int diameter = 20;
+	private int diameter = 35;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
+	ImageIcon imaBall1, imaBall2, imaBall3,imaBall;
+	JRadioButton radBall1 = new JRadioButton("", true), 
+			radBall2 = new JRadioButton(),radBall3 = new JRadioButton();
+	ButtonGroup btngBall = new ButtonGroup();
+	JPanel pnlSelect = new JPanel();
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
@@ -90,6 +100,27 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	/** Implement actionPerformed */
 	public void actionPerformed(ActionEvent e) {
 		step();
+		if (radBall1.isSelected()) {
+			// System.out.println(1);
+			imaStart = new ImageIcon("");//imagePongGame/start3.gif
+			imaPlaying = new ImageIcon("");
+			imaBall = new ImageIcon("imagePongGame/cau2.png");
+			imaOver = new ImageIcon("");//imagePongGame/imaOver.gif
+			imaFill = new ImageIcon("");//imagePongGame/fill5.png
+
+		} else if (radBall2.isSelected()) {
+			imaPlaying = new ImageIcon("");
+			imaBall = new ImageIcon("imagePongGame/cau3.png");
+			imaStart = new ImageIcon("");
+			imaOver = new ImageIcon("");
+			imaFill = new ImageIcon("");
+		}else if (radBall3.isSelected()) {
+			imaPlaying = new ImageIcon("");
+			imaBall = new ImageIcon("imagePongGame/cau4.png");
+			imaStart = new ImageIcon("");
+			imaOver = new ImageIcon("");
+			imaFill = new ImageIcon("");
+		}
 	}
 
 	/** Repeated task */
@@ -225,7 +256,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
-					//ballDeltaY *= -1;
+					// ballDeltaY *= -1;
 				}
 			}
 
@@ -244,6 +275,38 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		super.paintComponent(g);
 
 		if (showTitleScreen) {
+			// select ball
+			pnlSelect.setLayout(null);
+			pnlSelect.setOpaque(false);
+			btngBall.add(radBall1);
+			btngBall.add(radBall2);
+			btngBall.add(radBall3);
+
+			pnlSelect.add(radBall1);
+			pnlSelect.add(radBall2);
+			pnlSelect.add(radBall3);
+
+			radBall1.setBounds(0, 0, 20, 20);
+			radBall2.setBounds(60, 0, 20, 20);
+			radBall3.setBounds(120, 0, 20, 20);
+
+			radBall1.setContentAreaFilled(false);
+			radBall2.setContentAreaFilled(false);
+			radBall3.setContentAreaFilled(false);
+
+			this.add(pnlSelect);
+			pnlSelect.setBounds(170, 310, 200, 25);
+			pnlSelect.setVisible(true);
+			// background screen
+			g.drawImage(imaStart.getImage(), 0, 0, getWidth(), getHeight(), null);
+			g.drawImage(imaFill.getImage(), 100, 250, 300, 185,null);
+			// draw ball list
+			imaBall1 = new ImageIcon("imagePongGame/cau2.png");
+			imaBall2 = new ImageIcon("imagePongGame/cau3.png");
+			imaBall3 = new ImageIcon("imagePongGame/cau4.png");
+			g.drawImage(imaBall1.getImage(), 160, 260, 40, 40, null);
+			g.drawImage(imaBall2.getImage(), 220, 260, 40, 40, null);
+			g.drawImage(imaBall3.getImage(), 280, 260, 40, 40, null);
 
 			/* Show welcome screen */
 
@@ -256,6 +319,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 			g.drawString("Press 'P' to play.", 140, 400);
 		} else if (playing) {
+			// disable select ball
+			pnlSelect.setVisible(false);
+			// background playing
+			g.drawImage(imaPlaying.getImage(), 0, 0, 500, 500, Color.black, null);
 
 			/* Game is playing */
 
@@ -280,21 +347,25 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 																	// score
 			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
 																	// score
-
 			// draw the ball
-			g.setColor(Color.RED);
-			g.fillOval(ballX, ballY, diameter, diameter);
+			// g.setColor(Color.RED);
+			// g.fillOval(ballX, ballY, diameter, diameter);
+			g.drawImage(imaBall.getImage(), ballX, ballY, diameter, diameter, null);
 
 			// draw the paddles
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
 		} else if (gameOver) {
+			// disable select ball
+			pnlSelect.setVisible(false);
+			// background gameOver
+			g.drawImage(imaOver.getImage(), 0, 0, getWidth(), getHeight(), null);
 
 			/* Show End game screen with winner name and score */
 
 			// Draw scores
 			// TODO Set Blue color
-			
+
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.setColor(Color.BLUE);
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
@@ -320,7 +391,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		if (showTitleScreen) {
-			if (e.getKeyChar() == 'p'||e.getKeyChar() == 'P') {
+			if (e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
 				showTitleScreen = false;
 				playing = true;
 			}
