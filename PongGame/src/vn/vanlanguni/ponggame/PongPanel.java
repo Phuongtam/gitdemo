@@ -59,9 +59,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int diameter = 35;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
-	ImageIcon imaBall1, imaBall2, imaBall3,imaBall;
+	ImageIcon imaBall1, imaBall2, imaBall3, imaBall;
 	JRadioButton radBall1 = new JRadioButton("", true), 
-			radBall2 = new JRadioButton(),radBall3 = new JRadioButton();
+			radBall2 = new JRadioButton(), radBall3 = new JRadioButton();
 	ButtonGroup btngBall = new ButtonGroup();
 	JPanel pnlSelect = new JPanel();
 
@@ -70,12 +70,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerOneY = 250;
 	private int playerOneWidth = 10;
 	private int playerOneHeight = 60;
+	ImageIcon paddle1 = new ImageIcon("imagePongGame/paddle1.png");
 
 	/** Player 2's paddle: position and size */
 	private int playerTwoX = 484;
 	private int playerTwoY = 250;
 	private int playerTwoWidth = 10;
 	private int playerTwoHeight = 60;
+	ImageIcon paddle2 = new ImageIcon("imagePongGame/paddle2.png");
 
 	/** Speed of the paddle - How fast the paddle move. */
 	private int paddleSpeed = 5;
@@ -102,7 +104,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		step();
 		if (radBall1.isSelected()) {
 			// System.out.println(1);
-			imaStart = new ImageIcon("imagePongGame/nen neon.jpg");//imagePongGame/start3.gif
+			imaStart = new ImageIcon("imagePongGame/nen neon.jpg");// imagePongGame/start3.gif
 			imaPlaying = new ImageIcon("imagePongGame/amnhac4.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau2.png");
 			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
@@ -112,7 +114,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			imaBall = new ImageIcon("imagePongGame/cau3.png");
 			imaStart = new ImageIcon("imagePongGame/anhdongnoen.gif");
 			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
-		}else if (radBall3.isSelected()) {
+		} else if (radBall3.isSelected()) {
 			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau4.png");
 			imaStart = new ImageIcon("imagePongGame/anhdongnoen.gif");
@@ -349,8 +351,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.drawImage(imaBall.getImage(), ballX, ballY, diameter, diameter, null);
 
 			// draw the paddles
-			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
-			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
+			// g.fillRect(playerOneX, playerOneY, playerOneWidth,
+			// playerOneHeight);
+			g.drawImage(paddle1.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK, null);
+			// g.fillRect(playerTwoX, playerTwoY, playerTwoWidth,
+			// playerTwoHeight);
+			g.drawImage(paddle2.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK, null);
+
 		} else if (gameOver) {
 			// disable select ball
 			pnlSelect.setVisible(false);
