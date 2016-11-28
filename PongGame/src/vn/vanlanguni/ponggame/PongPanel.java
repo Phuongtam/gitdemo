@@ -60,8 +60,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 	ImageIcon imaBall1, imaBall2, imaBall3, imaBall;
-	JRadioButton radBall1 = new JRadioButton("", true), 
-			radBall2 = new JRadioButton(), radBall3 = new JRadioButton();
+	JRadioButton radBall1 = new JRadioButton("", true), radBall2 = new JRadioButton(), radBall3 = new JRadioButton();
 	ButtonGroup btngBall = new ButtonGroup();
 	JPanel pnlSelect = new JPanel();
 
@@ -104,21 +103,20 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		step();
 		if (radBall1.isSelected()) {
 			// System.out.println(1);
-			imaStart = new ImageIcon("imagePongGame/nen neon.jpg");// imagePongGame/start3.gif
-			imaPlaying = new ImageIcon("imagePongGame/amnhac4.jpg");
+			imaStart = new ImageIcon("imagePongGame/nenneon.gif");// imagePongGame/start3.gif
+			imaPlaying = new ImageIcon("imagePongGame/amnhac.jpg");//
 			imaBall = new ImageIcon("imagePongGame/cau2.png");
-			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
-
+			imaOver = new ImageIcon("imagePongGame/Overneon.gif");
 		} else if (radBall2.isSelected()) {
-			imaPlaying = new ImageIcon("imagePongGame/anhdongnoen1.gif");
+			imaStart = new ImageIcon("imagePongGame/nenneon.gif");//
+			imaPlaying = new ImageIcon("imagePongGame/amnhac.jpg");//
 			imaBall = new ImageIcon("imagePongGame/cau3.png");
-			imaStart = new ImageIcon("imagePongGame/anhdongnoen.gif");
 			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
 		} else if (radBall3.isSelected()) {
-			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");
+			imaStart = new ImageIcon("imagePongGame/EDM.gif");
+			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");//
 			imaBall = new ImageIcon("imagePongGame/cau4.png");
-			imaStart = new ImageIcon("imagePongGame/anhdongnoen.gif");
-			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
+			imaOver = new ImageIcon("imagePongGame/imaOver.gif");//
 		}
 	}
 
