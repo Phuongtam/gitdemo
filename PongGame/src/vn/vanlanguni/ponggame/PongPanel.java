@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -48,8 +50,9 @@ import vn.vanlanguni.ponggame.MyDialogResult;
  * @author Invisible Man
  *
  */
-public class PongPanel extends JPanel implements ActionListener, KeyListener,MouseMotionListener, MouseListener {
+public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseMotionListener, MouseListener {
 	private static final long serialVersionUID = -1097341635155021546L;
+	private int interval = 1000 / 60;
 
 	private boolean showTitleScreen = true;
 	private boolean playing;
@@ -69,15 +72,21 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 	ImageIcon iconSet2 = new ImageIcon("imagePongGame/iconSetting2.png");
 	boolean hover;
 	boolean pressed;
-	//boolean dragged;
+	// boolean dragged;
 	boolean hover2;
 	boolean pressed2;
-	
-	int w = 30, h = 30,h2=30,w2=100;
-	int x =445,y=25,x2 =190, y2 = 350;
-	//int dx, dy;
-	JLabel lbluser1 = new JLabel("Player 1"),lbluser2 = new JLabel("Player 2");
-	String user1 ,user2;
+	int w = 30, h = 30, h2 = 30, w2 = 100;
+	int x = 445, y = 25, x2 = 190, y2 = 350;
+	// int dx, dy;
+	JLabel lbluser1 = new JLabel("Player 1"), lbluser2 = new JLabel("Player 2");
+	String user1, user2;
+
+	// Random +/-
+	private int timeToDisplay;
+	private boolean showRandom;
+	private int xRan;
+	private int yRan;
+	private int lastHitBall;
 
 	/** State on the control keys. */
 	private boolean upPressed;
@@ -92,8 +101,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 	ImageIcon imaBall1, imaBall2, imaBall3, imaBall;
-	JRadioButton radBall1 = new JRadioButton("", true), 
-			radBall2 = new JRadioButton(), radBall3 = new JRadioButton();
+	JRadioButton radBall1 = new JRadioButton("", true), radBall2 = new JRadioButton(), radBall3 = new JRadioButton();
 	ButtonGroup btngBall = new ButtonGroup();
 	JPanel pnlSelect = new JPanel();
 
@@ -129,7 +137,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 		addMouseListener(this);
 
 		// call step() 60 fps
-		Timer timer = new Timer(1000 / 60, this);
+		timeToDisplay = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+		Timer timer = new Timer(interval, this);
 		timer.start();
 	}
 
@@ -138,8 +147,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 		step();
 		if (radBall1.isSelected()) {
 			// System.out.println(1);
-
-			
 
 			imaStart = new ImageIcon("imagePongGame/nen neon.jpg");
 			imaPlaying = new ImageIcon("imagePongGame/amnhac4.jpg");
@@ -299,10 +306,42 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			// move the ball
 			ballX += ballDeltaX;
 			ballY += ballDeltaY;
+
+			timeToDisplay -= interval;
+			System.out.format("%d x: %d - y: %d\n", timeToDisplay, xRan, yRan);
+			if (timeToDisplay < 0) {
+				if (showRandom == false) {
+					showRandom = true;
+					xRan = ThreadLocalRandom.current().nextInt(50, 450 + 1);
+					yRan = ThreadLocalRandom.current().nextInt(0, 450 + 1);
+				} else {
+					Point ballCenter = new Point(ballX + diameter / 2, ballY + diameter / 2);
+					Point ranCenter = new Point(xRan + 15, yRan + 15);
+					double distance = getPointDistance(ballCenter, ranCenter);
+					if (distance < diameter / 2 + 15) {
+						showRandom = false;
+						timeToDisplay = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+						if (lastHitBall == 1) {
+							playerOneHeight /= 2;
+						} else if (lastHitBall == 2) {
+							playerTwoHeight /= 2;
+						}
+					}
+				}
+				if (timeToDisplay < -6000) {
+					showRandom = false;
+					timeToDisplay = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+				}
+			}
+
 		}
 
 		// stuff has moved, tell this JPanel to repaint itself
 		repaint();
+	}
+
+	public double getPointDistance(Point p1, Point p2) {
+		return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 	}
 
 	/** Paint the game screen. */
@@ -342,29 +381,29 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			g.drawImage(imaBall1.getImage(), 160, 260, 40, 40, null);
 			g.drawImage(imaBall2.getImage(), 220, 260, 40, 40, null);
 			g.drawImage(imaBall3.getImage(), 280, 260, 40, 40, null);
-			
+
 			/* Setting username */
 			rect = new Rectangle(x, y, w, h);
 			if (hover) {
 				if (pressed) {
-					g.drawImage(iconSet.getImage(), x , y ,null);
+					g.drawImage(iconSet.getImage(), x, y, null);
 				} else {
-					g.drawImage(iconSet.getImage(), x , y ,null);
+					g.drawImage(iconSet.getImage(), x, y, null);
 				}
 			} else {
-				g.drawImage(iconSet2.getImage(), x , y ,null);
+				g.drawImage(iconSet2.getImage(), x, y, null);
 			}
-			// draw Start  game
-			rect2= new Rectangle(x2, y2, w2, h2);
+			// draw Start game
+			rect2 = new Rectangle(x2, y2, w2, h2);
 			g.setFont(new Font("Tahoma", Font.BOLD, 15));
 			if (hover2) {
 				if (pressed2) {
 					g.drawImage(btnIcon.getImage(), x2, y2, x2 + w2, y2 + h2, 0, 214, 371, 214 + 106, null);
 					g.setColor(Color.RED);
-					
+
 				} else {
 					g.drawImage(btnIcon.getImage(), x2, y2, x2 + w2, y2 + h2, 0, 0, 371, 108, null);
-					g.setColor(Color.WHITE);	
+					g.setColor(Color.WHITE);
 				}
 			} else {
 				g.drawImage(btnIcon.getImage(), x2, y2, x2 + w2, y2 + h2, 0, 108, 371, 108 + 106, null);
@@ -372,9 +411,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			}
 			g.setFont(new Font("Tahoma", Font.BOLD, 15));
 			g.drawString("Start!!!", x2 + 30, y2 + 19);
-		
-			
-		
 
 			/* Show welcome screen */
 
@@ -418,7 +454,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 																	// score
 			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
 																	// score
-			//set username
+			// set username
 			add(lbluser1);
 			add(lbluser2);
 			lbluser1.setBounds(40, 20, 100, 40);
@@ -439,7 +475,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			// g.fillRect(playerTwoX, playerTwoY, playerTwoWidth,
 			// playerTwoHeight);
 			g.drawImage(paddle2.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK, null);
-
+			if (showRandom) {
+				g.fillOval(xRan, yRan, 30, 30);
+			}
 
 		} else if (gameOver) {
 			// set username
@@ -467,9 +505,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			// Draw the winner name
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
-				g.drawString(user1+" Wins!", 140, 200);
+				g.drawString(user1 + " Wins!", 140, 200);
 			} else {
-				g.drawString(user2+" Wins!", 140, 200);
+				g.drawString(user2 + " Wins!", 140, 200);
 			}
 
 			// Draw Restart message
@@ -521,24 +559,25 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			sPressed = false;
 		}
 	}
-	public void Setting(){
+
+	public void Setting() {
 		SecondWindow w = new SecondWindow();
 		w.setLocationRelativeTo(PongPanel.this);
 		w.setVisible(true);
 		Settings s = w.getSetings();
-		
+
 		// Stop and wait for user input
-		
+
 		if (w.dialogResult == MyDialogResult.YES) {
 			user1 = s.getUserName1();
 			user2 = s.getUserName2();
-			if(user1.length()>0 ){
+			if (user1.length() > 0) {
 				lbluser1.setText(user1);
-			}if(user2.length()>0){
+			}
+			if (user2.length() > 0) {
 				lbluser2.setText(user2);
 			}
-			
-		
+
 		} else {
 			System.out.println("User chose to cancel");
 		}
@@ -549,55 +588,55 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 		// TODO Auto-generated method stub
 		if (rect.contains(e.getPoint())) {
 			Setting();
-		}else if (rect2.contains(e.getPoint())){
-			showTitleScreen=false;
+		} else if (rect2.contains(e.getPoint())) {
+			showTitleScreen = false;
 			playing = true;
 		}
-	
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-//		pressed = true;
-//		if (rect.contains(e.getX(), e.getY())) {
-//			dx = e.getX() - x;
-//			dy = e.getY() - y;
-//			dragged = true;
-//		}
-//		repaint();
+		// pressed = true;
+		// if (rect.contains(e.getX(), e.getY())) {
+		// dx = e.getX() - x;
+		// dy = e.getY() - y;
+		// dragged = true;
+		// }
+		// repaint();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-//		pressed = false;
-//		dragged = false;
-//		repaint();
+		// pressed = false;
+		// dragged = false;
+		// repaint();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-//		if (dragged && PongPanel.this.getBounds().contains(e.getPoint())) {
-//			x = e.getX() - dx;
-//			y = e.getY() - dy;
-//			repaint();
-//			System.out.format("Mouse x: %d , Mouse y: %d, dx: %d, dx: %d",
-//					e.getX(), e.getY(), dx, dy);
-//		}
+		// if (dragged && PongPanel.this.getBounds().contains(e.getPoint())) {
+		// x = e.getX() - dx;
+		// y = e.getY() - dy;
+		// repaint();
+		// System.out.format("Mouse x: %d , Mouse y: %d, dx: %d, dx: %d",
+		// e.getX(), e.getY(), dx, dy);
+		// }
 	}
 
 	@Override
@@ -605,24 +644,24 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 		// TODO Auto-generated method stub
 		if (rect.contains(e.getX(), e.getY())) {
 			hover = true;
-			//setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		} else {	
+			// setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		} else {
 			hover = false;
-			//setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			// setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 		repaint();
-		 if (rect2.contains(e.getX(), e.getY())) {
+		if (rect2.contains(e.getX(), e.getY())) {
 			buttonColor = Color.RED;
 			hover2 = true;
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		} else{
+		} else {
 			buttonColor = Color.BLUE;
 			hover2 = false;
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
-		
+
 		repaint();
-	
+
 	}
 
 }
