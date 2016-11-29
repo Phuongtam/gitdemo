@@ -59,7 +59,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
-	ImageIcon imaPlaying, imaStart, imaOver;
+	ImageIcon imaPlaying, imaStart, imaOver ,imatext;
 	/** Start game */
 	private static final int WIDTH = 500;
 	private static final int HEIGHT = 500;
@@ -160,13 +160,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		step();
 		if (radBall1.isSelected()) {
 			// System.out.println(1);
+			imatext = new ImageIcon("imagePongGame/Text2.png");
 			imaStart = new ImageIcon("imagePongGame/Neon.gif");
 			imaPlaying = new ImageIcon("imagePongGame/Neonplay.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau2.png");
-			imaOver = new ImageIcon("imagePongGame/Overneon.gif");
+			imaOver = new ImageIcon("imagePongGame/NeonOver.gif");
 			paddle1 = new ImageIcon("imagePongGame/paddleNeon1.png");
 			paddle2 = new ImageIcon("imagePongGame/paddleNeon2.png");
 		} else if (radBall2.isSelected()) {
+			imatext = new ImageIcon("imagePongGame/Text3.png");
 			imaStart = new ImageIcon("imagePongGame/Noen.gif");
 			imaPlaying = new ImageIcon("imagePongGame/Noenplay.gif");
 			imaBall = new ImageIcon("imagePongGame/cau3.png");
@@ -174,6 +176,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			paddle1 = new ImageIcon("imagePongGame/paddleNoel1.png");
 			paddle2 = new ImageIcon("imagePongGame/paddleNoel2.png");
 		} else if (radBall3.isSelected()) {
+			imatext = new ImageIcon("imagePongGame/Text4.png");
 			imaStart = new ImageIcon("imagePongGame/nenEDM.gif");
 			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau4.png");
@@ -448,6 +451,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			pnlSelect.setVisible(true);
 			// background screen
 			g.drawImage(imaStart.getImage(), 0, 0, getWidth(), getHeight(), null);
+			g.drawImage(imatext.getImage(), 100, 100, 300, 100, null);
 			// draw ball list
 			imaBall1 = new ImageIcon("imagePongGame/cau2.png");
 			imaBall2 = new ImageIcon("imagePongGame/cau3.png");
@@ -491,7 +495,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// Draw game title and start message
 			g.setColor(Color.BLUE);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.drawString("Pong Game", 130, 100);
+		//	g.drawString("Pong Game", 130, 100);
 
 			// FIXME Wellcome message below show smaller than game title
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
