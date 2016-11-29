@@ -34,7 +34,6 @@ import java.awt.event.MouseMotionListener;
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.File;
 
-
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -59,7 +58,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
-	ImageIcon imaPlaying, imaStart, imaOver ,imatext;
+	ImageIcon imaPlaying, imaStart, imaOver, imatext;
 	/** Start game */
 	private static final int WIDTH = 500;
 	private static final int HEIGHT = 500;
@@ -90,7 +89,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	ImageIcon imacong = new ImageIcon("imagePongGame/daucong.png");
 	ImageIcon imatru = new ImageIcon("imagePongGame/dautru.png");
 
-
 	/** State on the control keys. */
 	private boolean upPressed;
 	private boolean downPressed;
@@ -113,14 +111,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int playerOneY = 250;
 	private int playerOneWidth = 10;
 	private int playerOneHeight = 60;
-	ImageIcon paddle1, paddle1a, paddle1b, paddle1c;
+	ImageIcon imaPaddle1;
 
 	/** Player 2's paddle: position and size */
 	private int playerTwoX = 484;
 	private int playerTwoY = 250;
 	private int playerTwoWidth = 10;
 	private int playerTwoHeight = 60;
-	ImageIcon paddle2, paddle2a, paddle2b, paddle2c;
+	ImageIcon imaPaddle2;
 
 	/** Speed of the paddle - How fast the paddle move. */
 	private int paddleSpeed = 5;
@@ -165,24 +163,24 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			imaPlaying = new ImageIcon("imagePongGame/Neonplay.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau2.png");
 			imaOver = new ImageIcon("imagePongGame/NeonOver.gif");
-			paddle1 = new ImageIcon("imagePongGame/paddleNeon1.png");
-			paddle2 = new ImageIcon("imagePongGame/paddleNeon2.png");
+			imaPaddle1 = new ImageIcon("imagePongGame/paddleNeon1.png");
+			imaPaddle2 = new ImageIcon("imagePongGame/paddleNeon2.png");
 		} else if (radBall2.isSelected()) {
 			imatext = new ImageIcon("imagePongGame/Text3.png");
 			imaStart = new ImageIcon("imagePongGame/Noen.gif");
 			imaPlaying = new ImageIcon("imagePongGame/Noenplay.gif");
 			imaBall = new ImageIcon("imagePongGame/cau3.png");
 			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
-			paddle1 = new ImageIcon("imagePongGame/paddleNoel1.png");
-			paddle2 = new ImageIcon("imagePongGame/paddleNoel2.png");
+			imaPaddle1 = new ImageIcon("imagePongGame/paddleNoel1.png");
+			imaPaddle2 = new ImageIcon("imagePongGame/paddleNoel2.png");
 		} else if (radBall3.isSelected()) {
 			imatext = new ImageIcon("imagePongGame/Text4.png");
 			imaStart = new ImageIcon("imagePongGame/nenEDM.gif");
 			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau4.png");
 			imaOver = new ImageIcon("imagePongGame/OverEDM.gif");
-			paddle1 = new ImageIcon("imagePongGame/paddle001.png");
-			paddle2 = new ImageIcon("imagePongGame/paddle002.png");
+			imaPaddle1 = new ImageIcon("imagePongGame/paddle001.png");
+			imaPaddle2 = new ImageIcon("imagePongGame/paddle002.png");
 		}
 	}
 
@@ -351,18 +349,18 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						showRandom = false;
 						timeToDisplay = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
 						if (lastHitBall == 1) {
-							 if(playerOneHeight>10){
-							playerOneHeight -= ((playerOneHeight * 25 * 1.0) / 100);
-							 }else{
-							 playerOneHeight=10;
-							 }
+							if (playerOneHeight > 10) {
+								playerOneHeight -= ((playerOneHeight * 25 * 1.0) / 100);
+							} else {
+								playerOneHeight = 10;
+							}
 
 						} else if (lastHitBall == 2) {
-							 if(playerTwoHeight>10){
-							playerTwoHeight -= ((playerTwoHeight * 25 * 1.0) / 100);
-							 }else{
-							 playerTwoHeight=10;
-							 }
+							if (playerTwoHeight > 10) {
+								playerTwoHeight -= ((playerTwoHeight * 25 * 1.0) / 100);
+							} else {
+								playerTwoHeight = 10;
+							}
 						}
 					}
 				}
@@ -388,18 +386,18 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						showRandom2 = false;
 						timeToDisplay2 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
 						if (lastHitBall == 1) {
-							 if(playerOneHeight<150){
-							playerOneHeight += ((playerOneHeight * 25 * 1.0) / 100);
-							 }else{
-							 playerOneHeight=150;
-							 }
+							if (playerOneHeight < 150) {
+								playerOneHeight += ((playerOneHeight * 25 * 1.0) / 100);
+							} else {
+								playerOneHeight = 150;
+							}
 
 						} else if (lastHitBall == 2) {
-							 if(playerTwoHeight<150){
-							playerTwoHeight += ((playerTwoHeight * 25 * 1.0) / 100);
-							}else{
-							 playerTwoHeight=150;
-							 }
+							if (playerTwoHeight < 150) {
+								playerTwoHeight += ((playerTwoHeight * 25 * 1.0) / 100);
+							} else {
+								playerTwoHeight = 150;
+							}
 						}
 
 					}
@@ -495,7 +493,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// Draw game title and start message
 			g.setColor(Color.BLUE);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-		//	g.drawString("Pong Game", 130, 100);
+			// g.drawString("Pong Game", 130, 100);
 
 			// FIXME Wellcome message below show smaller than game title
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
@@ -546,46 +544,17 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawImage(imaBall.getImage(), ballX, ballY, diameter, diameter, null);
 
 			// draw the paddles
+			g.drawImage(imaPaddle1.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK,
+					null);
+			g.drawImage(imaPaddle2.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK,
+					null);
 
-			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
-			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
-
-			// g.fillRect(playerOneX, playerOneY, playerOneWidth,
-			// playerOneHeight);
-			g.drawImage(paddle1.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK, null);
-			// g.fillRect(playerTwoX, playerTwoY, playerTwoWidth,
-			// playerTwoHeight);
-			g.drawImage(paddle2.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK, null);
 			if (showRandom) {
-				g.drawImage(imatru.getImage(),xRan, yRan, 30, 30,null);
+				g.drawImage(imatru.getImage(), xRan, yRan, 30, 30, null);
 			}
 			if (showRandom2) {
-				g.drawImage(imacong.getImage(),xRan2, yRan2, 30, 30,null);
-
-			if (radBall1.isSelected()) {
-				paddle1a = new ImageIcon("imagePongGame/paddleNeon1.png");
-				paddle2a = new ImageIcon("imagePongGame/paddleNeon2.png");
-				g.drawImage(paddle1a.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK,
-						null);
-				g.drawImage(paddle2a.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK,
-						null);
-			} else if (radBall2.isSelected()) {
-				paddle1b = new ImageIcon("imagePongGame/paddleNoel1.png");
-				paddle2b = new ImageIcon("imagePongGame/paddleNoel2.png");
-				g.drawImage(paddle1b.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK,
-						null);
-				g.drawImage(paddle2b.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK,
-						null);
-			} else if (radBall3.isSelected()) {
-				paddle1c = new ImageIcon("imagePongGame/paddle001.png");
-				paddle2c = new ImageIcon("imagePongGame/paddle002.png");
-				g.drawImage(paddle1c.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK,
-						null);
-				g.drawImage(paddle2c.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK,
-						null);
-
+				g.drawImage(imacong.getImage(), xRan2, yRan2, 30, 30, null);
 			}
-
 		} else if (gameOver) {
 			playinggame.stop();
 			// set username
@@ -623,7 +592,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// TODO Draw a restart message
 			g.drawString("Press 'SpaceBar' to restart.", 130, 400);
 		}
-		}	
 	}
 
 	public void keyTyped(KeyEvent e) {
