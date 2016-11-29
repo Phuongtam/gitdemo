@@ -101,14 +101,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int playerOneY = 250;
 	private int playerOneWidth = 10;
 	private int playerOneHeight = 60;
-	ImageIcon paddle1 = new ImageIcon("imagePongGame/paddle1.png");
+	ImageIcon paddle1, paddle1a, paddle1b, paddle1c;
 
 	/** Player 2's paddle: position and size */
 	private int playerTwoX = 484;
 	private int playerTwoY = 250;
 	private int playerTwoWidth = 10;
 	private int playerTwoHeight = 60;
-	ImageIcon paddle2 = new ImageIcon("imagePongGame/paddle2.png");
+	ImageIcon paddle2, paddle2a, paddle2b, paddle2c;
 
 	/** Speed of the paddle - How fast the paddle move. */
 	private int paddleSpeed = 5;
@@ -141,16 +141,22 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			imaPlaying = new ImageIcon("imagePongGame/Neonplay.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau2.png");
 			imaOver = new ImageIcon("imagePongGame/Overneon.gif");
+			paddle1 = new ImageIcon("imagePongGame/paddleNeon1.png");
+			paddle2 = new ImageIcon("imagePongGame/paddleNeon2.png");
 		} else if (radBall2.isSelected()) {
 			imaStart = new ImageIcon("imagePongGame/nenneon.gif");
 			imaPlaying = new ImageIcon("imagePongGame/Noenplay.gif");
 			imaBall = new ImageIcon("imagePongGame/cau3.png");
 			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
+			paddle1 = new ImageIcon("imagePongGame/paddleNoel1.png");
+			paddle2 = new ImageIcon("imagePongGame/paddleNoel2.png");
 		} else if (radBall3.isSelected()) {
 			imaStart = new ImageIcon("imagePongGame/EDM.gif");
 			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau4.png");
 			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
+			paddle1 = new ImageIcon("imagePongGame/paddle001.png");
+			paddle2 = new ImageIcon("imagePongGame/paddle002.png");
 		}
 	}
 
@@ -422,15 +428,28 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 			// draw the paddles
 
-			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
-			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
-
-			// g.fillRect(playerOneX, playerOneY, playerOneWidth,
-			// playerOneHeight);
-			g.drawImage(paddle1.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK, null);
-			// g.fillRect(playerTwoX, playerTwoY, playerTwoWidth,
-			// playerTwoHeight);
-			g.drawImage(paddle2.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK, null);
+			if (radBall1.isSelected()) {
+				paddle1a = new ImageIcon("imagePongGame/paddleNeon1.png");
+				paddle2a = new ImageIcon("imagePongGame/paddleNeon2.png");
+				g.drawImage(paddle1a.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK,
+						null);
+				g.drawImage(paddle2a.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK,
+						null);
+			} else if (radBall2.isSelected()) {
+				paddle1b = new ImageIcon("imagePongGame/paddleNoel1.png");
+				paddle2b = new ImageIcon("imagePongGame/paddleNoel2.png");
+				g.drawImage(paddle1b.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK,
+						null);
+				g.drawImage(paddle2b.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK,
+						null);
+			} else if (radBall3.isSelected()) {
+				paddle1c = new ImageIcon("imagePongGame/paddle001.png");
+				paddle2c = new ImageIcon("imagePongGame/paddle002.png");
+				g.drawImage(paddle1c.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, Color.BLACK,
+						null);
+				g.drawImage(paddle2c.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK,
+						null);
+			}
 
 		} else if (gameOver) {
 			// set username
