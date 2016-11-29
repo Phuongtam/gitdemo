@@ -29,6 +29,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -36,12 +37,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.Timer;
-
-//import vn.vanlanguni.ponggame.PongPanel;
-//import vn.vanlanguni.ponggame.MyDialogResult;
-//import vn.vanlanguni.ponggame.SecondWindow;
-//import vn.vanlanguni.ponggame.Settings;
-import vn.vanlanguni.ponggame.MyDialogResult;
 
 /**
  * 
@@ -116,16 +111,23 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** Player score, show on upper left and right. */
 	private int playerOneScore;
 	private int playerTwoScore;
+	//
+	private soundplay startgame, overgame, playinggame, wingame, paddle;
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
+		startgame = new soundplay(new File("nhac/Badd Dimes - Wanito (Radio Edit).wav"));
+		playinggame = new soundplay(new File("nhac/Piaria & Wild Noise.wav"));
+		wingame = new soundplay(new File("nhac/Hot ID & Dual Mistery - Inkawu (Original Mix).wav"));
+		paddle = new soundplay(new File("nhac/cartoon003.wav"));
 
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
 		addMouseMotionListener(this);
 		addMouseListener(this);
+		startgame.playMusic();
 
 		// call step() 60 fps
 		Timer timer = new Timer(1000 / 60, this);
@@ -154,11 +156,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		}
 	}
 
-	/** Repeated task */
+	/** Repeated task */	
 	public void step() {
 
 		if (playing) {
-
+			startgame.stop();
 			/* Playing mode */
 
 			// move player 1
@@ -220,6 +222,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					if (playerTwoScore == 3) {
 						playing = false;
 						gameOver = true;
+						playinggame.stop();
+						wingame.playMusic();
 					}
 					ballX = 250;
 					ballY = 250;
@@ -245,6 +249,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
+					paddle.play();
 				}
 			}
 
@@ -259,6 +264,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					if (playerOneScore == 3) {
 						playing = false;
 						gameOver = true;
+						playinggame.stop();
+						wingame.playMusic();
 					}
 					ballX = 250;
 					ballY = 250;
@@ -288,6 +295,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
 					// ballDeltaY *= -1;
+					paddle.play();
 				}
 			}
 
@@ -381,6 +389,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			//
 			lbluser1.setVisible(false);
 			lbluser2.setVisible(false);
+			wingame.stop();
 		} else if (playing) {
 			// disable select ball
 			pnlSelect.setVisible(false);
@@ -433,6 +442,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawImage(paddle2.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, Color.BLACK, null);
 
 		} else if (gameOver) {
+			playinggame.stop();
 			// set username
 			lbluser1.setForeground(Color.BLUE);
 			lbluser2.setForeground(Color.BLUE);
@@ -478,6 +488,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
 				showTitleScreen = false;
 				playing = true;
+				playinggame.playMusic();
 			}
 		} else if (playing) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -490,6 +501,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				sPressed = true;
 			}
 		} else if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
+			startgame.playMusic();
 			gameOver = false;
 			showTitleScreen = true;
 			playerOneY = 250;
