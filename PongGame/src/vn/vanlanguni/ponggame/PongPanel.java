@@ -137,20 +137,20 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		step();
 		if (radBall1.isSelected()) {
 			// System.out.println(1);
-			imaStart = new ImageIcon("imagePongGame/nenneon.gif");
+			imaStart = new ImageIcon("imagePongGame/Neon.gif");
 			imaPlaying = new ImageIcon("imagePongGame/Neonplay.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau2.png");
 			imaOver = new ImageIcon("imagePongGame/Overneon.gif");
 		} else if (radBall2.isSelected()) {
-			imaStart = new ImageIcon("imagePongGame/nenneon.gif");
+			imaStart = new ImageIcon("imagePongGame/Noen.gif");
 			imaPlaying = new ImageIcon("imagePongGame/Noenplay.gif");
 			imaBall = new ImageIcon("imagePongGame/cau3.png");
 			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
 		} else if (radBall3.isSelected()) {
-			imaStart = new ImageIcon("imagePongGame/EDM.gif");
+			imaStart = new ImageIcon("imagePongGame/nenEDM.gif");
 			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau4.png");
-			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
+			imaOver = new ImageIcon("imagePongGame/OverEDM.gif");
 		}
 	}
 
@@ -405,7 +405,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 			// draw the scores
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.setColor(Color.BLUE);
+			g.setColor(Color.RED);
 			g.drawString(String.valueOf(playerOneScore), 100, 100); // Player 1
 																	// score
 			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
@@ -413,6 +413,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// set username
 			add(lbluser1);
 			add(lbluser2);
+			lbluser1.setForeground(Color.RED);
+			lbluser2.setForeground(Color.RED);
 			lbluser1.setBounds(40, 20, 100, 40);
 			lbluser2.setBounds(420, 20, 100, 40);
 			lbluser1.setVisible(true);
@@ -434,8 +436,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 		} else if (gameOver) {
 			// set username
-			lbluser1.setForeground(Color.BLUE);
-			lbluser2.setForeground(Color.BLUE);
+			lbluser1.setForeground(Color.RED);
+			lbluser2.setForeground(Color.RED);
 			lbluser1.setBounds(40, 20, 100, 40);
 			lbluser2.setBounds(420, 20, 100, 40);
 			lbluser1.setVisible(true);
@@ -451,7 +453,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// TODO Set Blue color
 
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.setColor(Color.BLUE);
+			g.setColor(Color.RED);
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
 			g.drawString(String.valueOf(playerTwoScore), 400, 100);
 
