@@ -38,6 +38,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 /**
  * 
  * @author Invisible Man
@@ -112,23 +114,25 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int playerOneScore;
 	private int playerTwoScore;
 	//
-	private soundplay startgame, overgame, playinggame, wingame, paddle;
+
+	private soundplay startgame, startgame2, startgame3, playinggame, playinggame2, playinggame3, wingame, wingame2,
+			wingame3, paddle;
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
 		startgame = new soundplay(new File("nhac/Badd Dimes - Wanito (Radio Edit).wav"));
-		playinggame = new soundplay(new File("nhac/Piaria & Wild Noise.wav"));
-		wingame = new soundplay(new File("nhac/Hot ID & Dual Mistery - Inkawu (Original Mix).wav"));
+		playinggame = new soundplay(new File("nhac/NhacSan-DJ_qdw3 (1).wav"));
+		playinggame2 = new soundplay(new File("nhac/WeWishYouAMerryChristmasBeat-Unk_ujah.wav"));
+		playinggame3 = new soundplay(new File("nhac/Piaria & Wild Noise.wav"));
+		wingame = new soundplay(new File("nhac/NiemTinChienThangNhacChuong-V.A-2951916.wav"));
 		paddle = new soundplay(new File("nhac/cartoon003.wav"));
-
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		startgame.playMusic();
-
 		// call step() 60 fps
 		Timer timer = new Timer(1000 / 60, this);
 		timer.start();
@@ -156,7 +160,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		}
 	}
 
-	/** Repeated task */	
+	/** Repeated task */
 	public void step() {
 
 		if (playing) {
@@ -488,8 +492,19 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
 				showTitleScreen = false;
 				playing = true;
-				playinggame.playMusic();
+				if (radBall1.isSelected()) {
+					playinggame.playMusic();
+				} else {
+					if (radBall2.isSelected()) {
+						playinggame2.playMusic();
+					} else {
+						playinggame3.playMusic();
+					}
+
+				}
+				// playinggame.playMusic();
 			}
+
 		} else if (playing) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				upPressed = true;
@@ -501,7 +516,17 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				sPressed = true;
 			}
 		} else if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
-			startgame.playMusic();
+			if (radBall1.isSelected()) {
+				startgame.playMusic();
+			} else {
+				if (radBall2.isSelected()) {
+					startgame2.playMusic();
+				} else {
+					startgame3.playMusic();
+				}
+
+			}
+
 			gameOver = false;
 			showTitleScreen = true;
 			playerOneY = 250;
@@ -556,6 +581,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		} else if (rect2.contains(e.getPoint())) {
 			showTitleScreen = false;
 			playing = true;
+			if (radBall1.isSelected()) {
+				playinggame.playMusic();
+			} else {
+				if (radBall2.isSelected()) {
+					playinggame2.playMusic();
+				} else {
+					playinggame3.playMusic();
+				}
+
+			}
 		}
 
 	}
