@@ -708,6 +708,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			ballY = 250;
 			playerOneScore = 0;
 			playerTwoScore = 0;
+			startgame.playMusic();
 		}
 	}
 
