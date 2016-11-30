@@ -154,8 +154,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		// call step() 60 fps
 		timeToDisplay = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
 		timeToDisplay2 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
-		timeToDisplay3 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
-		timeToDisplay4 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+		timeToDisplay3 = ThreadLocalRandom.current().nextInt(20, 30 + 1) * 1000;
+		timeToDisplay4 = ThreadLocalRandom.current().nextInt(20, 30 + 1) * 1000;
 		Timer timer = new Timer(interval, this);
 		timer.start();
 	}
@@ -438,7 +438,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					double distance3 = getPointDistance(ballCenter3, ranCenter3);
 					if (distance3 < diameter / 2 + 15) {
 						showRandom3 = false;
-						timeToDisplay3 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+						timeToDisplay3 = ThreadLocalRandom.current().nextInt(20, 30 + 1) * 1000;
 						interval -= ((interval * 50 * 1.0) / 100);
 					}
 				}
@@ -446,7 +446,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				if (timeToDisplay3 < -4000) {
 					showRandom3 = false;
 					interval = 1000 / 100;
-					timeToDisplay3 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+					timeToDisplay3 = ThreadLocalRandom.current().nextInt(20,30+1) * 1000;
 				}
 			}
 			// Random <<
@@ -463,7 +463,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					double distance4 = getPointDistance(ballCenter4, ranCenter4);
 					if (distance4 < diameter / 2 + 15) {
 						showRandom4 = false;
-						timeToDisplay4 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+						timeToDisplay4 = ThreadLocalRandom.current().nextInt(20, 30 + 1) * 1000;
 						interval += ((interval * 50 * 1.0) / 100);
 					}
 				}
@@ -471,7 +471,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				if (timeToDisplay4 < -4000) {
 					showRandom4 = false;
 					interval = 1000 / 100;
-					timeToDisplay4 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+					timeToDisplay4 = ThreadLocalRandom.current().nextInt(20, 30 + 1) * 1000;
 				}
 			}
 		}
