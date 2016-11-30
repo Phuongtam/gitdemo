@@ -133,7 +133,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	//
 
 	private soundplay startgame, startgame2, startgame3, playinggame, playinggame2, playinggame3, wingame, wingame2,
-			wingame3, paddle;
+			wingame3, paddle, tuong;
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
@@ -143,7 +143,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		playinggame2 = new soundplay(new File("nhac/WeWishYouAMerryChristmasBeat-Unk_ujah.wav"));
 		playinggame3 = new soundplay(new File("nhac/Piaria & Wild Noise.wav"));
 		wingame = new soundplay(new File("nhac/NiemTinChienThangNhacChuong-V.A-2951916.wav"));
-		paddle = new soundplay(new File("nhac/cartoon003.wav"));
+		paddle = new soundplay(new File("nhac/beep-03.wav"));
+		tuong = new soundplay(new File("nhac/beep-01a.wav"));
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
@@ -243,8 +244,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0) {
 				ballDeltaY = 3;
+				tuong.play();
 			} else if (nextBallBottom > 475) {
 				ballDeltaY = -3;
+				tuong.play();
 			}
 
 			// will the ball go off the left side?
