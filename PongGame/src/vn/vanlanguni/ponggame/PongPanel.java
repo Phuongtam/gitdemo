@@ -78,7 +78,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	int x = 445, y = 25, x2 = 190, y2 = 350;
 	// int dx, dy;
 	JLabel lbluser1 = new JLabel("Player 1"), lbluser2 = new JLabel("Player 2");
-	String user1, user2;
+	String user1="Player 1", user2="Player 2";
 
 	// Random +/-/>>/<<
 	private int timeToDisplay, timeToDisplay2, timeToDisplay3, timeToDisplay4;
@@ -737,11 +737,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			user2 = s.getUserName2();
 			if (user1.length() > 0) {
 				lbluser1.setText(user1);
+			}else{
+				user1="player 1";
 			}
 			if (user2.length() > 0) {
 				lbluser2.setText(user2);
+			}else{
+				user2="player 2";
 			}
-
 		} else {
 			System.out.println("User chose to cancel");
 		}
