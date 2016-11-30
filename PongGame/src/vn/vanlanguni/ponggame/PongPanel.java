@@ -253,6 +253,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						playing = false;
 						gameOver = true;
 						playinggame.stop();
+						playinggame2.stop();
+						playinggame3.stop();
 						wingame.playMusic();
 					}
 					ballX = 250;
@@ -297,6 +299,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						playing = false;
 						gameOver = true;
 						playinggame.stop();
+						playinggame2.stop();
+						playinggame3.stop();
 						wingame.playMusic();
 					}
 					ballX = 250;
@@ -588,6 +592,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 		} else if (gameOver) {
 			playinggame.stop();
+			playinggame2.stop();
+			playinggame3.stop();
 			// set username
 			lbluser1.setForeground(Color.RED);
 			lbluser2.setForeground(Color.RED);
