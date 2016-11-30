@@ -700,17 +700,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				sPressed = true;
 			}
 		} else if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (radBall1.isSelected()) {
-				startgame.playMusic();
-			} else {
-				if (radBall2.isSelected()) {
-					startgame2.playMusic();
-				} else {
-					startgame3.playMusic();
-				}
-
-			}
-
 			gameOver = false;
 			showTitleScreen = true;
 			playerOneY = 250;
