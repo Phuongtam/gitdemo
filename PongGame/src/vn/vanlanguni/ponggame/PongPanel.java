@@ -459,7 +459,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					yRan4 = ThreadLocalRandom.current().nextInt(0, 430 + 1);
 				} else {
 					Point ballCenter4 = new Point(ballX + diameter / 2, ballY + diameter / 2);
-					Point ranCenter4 = new Point(xRan3 + 15, yRan3 + 15);
+					Point ranCenter4 = new Point(xRan4 + 15, yRan4 + 15);
 					double distance4 = getPointDistance(ballCenter4, ranCenter4);
 					if (distance4 < diameter / 2 + 15) {
 						showRandom4 = false;
