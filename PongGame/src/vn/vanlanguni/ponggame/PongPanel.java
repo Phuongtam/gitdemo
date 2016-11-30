@@ -139,9 +139,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	public PongPanel() {
 		setBackground(backgroundColor);
 		startgame = new soundplay(new File("nhac/Badd Dimes - Wanito (Radio Edit).wav"));
-		playinggame = new soundplay(new File("nhac/NhacSan-DJ_qdw3 (1).wav"));
-		playinggame2 = new soundplay(new File("nhac/WeWishYouAMerryChristmasBeat-Unk_ujah.wav"));
-		playinggame3 = new soundplay(new File("nhac/Piaria & Wild Noise.wav"));
+		//playinggame = new soundplay(new File("nhac/NhacSan-DJ_qdw3 (1).wav"));
+		//playinggame2 = new soundplay(new File("nhac/WeWishYouAMerryChristmasBeat-Unk_ujah.wav"));
+		//playinggame3 = new soundplay(new File("nhac/Piaria & Wild Noise.wav"));
 		wingame = new soundplay(new File("nhac/NiemTinChienThangNhacChuong-V.A-2951916.wav"));
 		paddle = new soundplay(new File("nhac/beep-03.wav"));
 		tuong = new soundplay(new File("nhac/beep-06.wav"));
@@ -261,9 +261,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					if (playerTwoScore == 3) {
 						playing = false;
 						gameOver = true;
-						playinggame.stop();
-						playinggame2.stop();
-						playinggame3.stop();
+						//playinggame.stop();
+						//playinggame2.stop();
+						//playinggame3.stop();
 						wingame.playMusic();
 					}
 					ballX = 250;
@@ -307,9 +307,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					if (playerOneScore == 3) {
 						playing = false;
 						gameOver = true;
-						playinggame.stop();
-						playinggame2.stop();
-						playinggame3.stop();
+						//playinggame.stop();
+						//playinggame2.stop();
+						//playinggame3.stop();
 						wingame.playMusic();
 					}
 					ballX = 250;
@@ -628,9 +628,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			}
 
 		} else if (gameOver) {
-			playinggame.stop();
-			playinggame2.stop();
-			playinggame3.stop();
+			//playinggame.stop();
+			//playinggame2.stop();
+			//playinggame3.stop();
 			// set username
 			lbluser1.setForeground(Color.RED);
 			lbluser2.setForeground(Color.RED);
@@ -676,7 +676,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
 				showTitleScreen = false;
 				playing = true;
-				if (radBall1.isSelected()) {
+				/*if (radBall1.isSelected()) {
 					playinggame.playMusic();
 				} else {
 					if (radBall2.isSelected()) {
@@ -685,7 +685,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						playinggame3.playMusic();
 					}
 
-				}
+				}*/
 				// playinggame.playMusic();
 			}
 
@@ -755,7 +755,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		} else if (rect2.contains(e.getPoint())) {
 			showTitleScreen = false;
 			playing = true;
-			if (radBall1.isSelected()) {
+			/*if (radBall1.isSelected()) {
 				playinggame.playMusic();
 			} else {
 				if (radBall2.isSelected()) {
@@ -764,7 +764,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					playinggame3.playMusic();
 				}
 
-			}
+			}*/
 		}
 
 	}
