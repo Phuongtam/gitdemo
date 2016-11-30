@@ -50,7 +50,7 @@ import org.omg.CORBA.PUBLIC_MEMBER;
  */
 public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseMotionListener, MouseListener {
 	private static final long serialVersionUID = -1097341635155021546L;
-	private int interval = 1000 / 60;
+	private int interval = 1000 / 100;
 
 	private boolean showTitleScreen = true;
 	private boolean playing;
@@ -439,13 +439,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					if (distance3 < diameter / 2 + 15) {
 						showRandom3 = false;
 						timeToDisplay3 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
-						interval += ((interval * 25 * 1.0) / 100);
+						interval -= ((interval * 50 * 1.0) / 100);
 					}
 				}
 
 				if (timeToDisplay3 < -4000) {
 					showRandom3 = false;
-					interval = 1000 / 60;
+					interval = 1000 / 100;
 					timeToDisplay3 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
 				}
 			}
@@ -464,13 +464,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					if (distance4 < diameter / 2 + 15) {
 						showRandom4 = false;
 						timeToDisplay4 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
-						interval -= ((interval * 25 * 1.0) / 100);
+						interval += ((interval * 50 * 1.0) / 100);
 					}
 				}
 
 				if (timeToDisplay4 < -4000) {
 					showRandom4 = false;
-					interval = 1000 / 60;
+					interval = 1000 / 100;
 					timeToDisplay4 = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
 				}
 			}
