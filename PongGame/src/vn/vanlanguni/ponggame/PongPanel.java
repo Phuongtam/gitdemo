@@ -168,7 +168,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			imaStart = new ImageIcon("imagePongGame/Neon.gif");
 			imaPlaying = new ImageIcon("imagePongGame/Neonplay.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau2.png");
-			imaOver = new ImageIcon("imagePongGame/NeonOver.gif");
+			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
 			imaPaddle1 = new ImageIcon("imagePongGame/paddleNeon1.png");
 			imaPaddle2 = new ImageIcon("imagePongGame/paddleNeon2.png");
 		} else if (radBall2.isSelected()) {
@@ -184,7 +184,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			imaStart = new ImageIcon("imagePongGame/nenEDM.gif");
 			imaPlaying = new ImageIcon("imagePongGame/amnhac6.jpg");
 			imaBall = new ImageIcon("imagePongGame/cau4.png");
-			imaOver = new ImageIcon("imagePongGame/OverEDM.gif");
+			imaOver = new ImageIcon("imagePongGame/imaOver.gif");
 			imaPaddle1 = new ImageIcon("imagePongGame/paddle001.png");
 			imaPaddle2 = new ImageIcon("imagePongGame/paddle002.png");
 
